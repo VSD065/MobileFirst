@@ -61,7 +61,7 @@
 pipeline {
     agent any
     environment {
-        GCR_REPO = 'gcr.io/your-project-id/MobileFirst'
+        GCR_REPO = 'gcr.io/crack-atlas-430705-a1/mobilefirst'
     }
     stages {
         stage('Build') {
