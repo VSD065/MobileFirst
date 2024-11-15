@@ -1,13 +1,17 @@
 pipeline {
     agent any
-    //     tools {
-    //     maven 'Maven-3.8.7' 
-    // }
-     
+
     stages {
-        stage('git clone') {
+        stage('Git Clone') {
             steps {
-             git credentialsId: 'cred4mobilefirst', url: 'https://github.com/VSD065/MobileFirst.git'
+                script {
+                    // Explicitly define the branch to avoid conflicts
+                    git(
+                        credentialsId: 'cred4mobilefirst',
+                        url: 'https://github.com/VSD065/MobileFirst.git',
+                        branch: 'main' // Replace 'main' with 'master' if the default branch is master
+                    )
+                }
             }
         }
     }
