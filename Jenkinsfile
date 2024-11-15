@@ -35,10 +35,8 @@ pipeline {
         stage('Authenticate with GCR') {
             steps {
                 script {
-                    // Ensure the service account is activated for gcloud
-                    withCredentials([file(credentialsId: 'gcr-service-account', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                        sh "gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS"
-                        sh "gcloud auth configure-docker"
+                    sh '''gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+                    gcloud auth configure-docker'''
                     }
                 }
             }
