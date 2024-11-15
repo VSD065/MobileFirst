@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('git clone') {
             steps {
-             git credentialsId: 'cred4mobilefirst', url: 'https://github.com/VSD065/Harman.git'
+             git credentialsId: 'cred4mobilefirst', url: 'https://github.com/VSD065/MobileFirst.git'
             }
         }
     }
