@@ -4,7 +4,7 @@ pipeline {
     environment {
         PROJECT_ID = 'crack-atlas-430705-a1'
         IMAGE_NAME = 'mobilefirstnew'
-        GCR_URL = "gcr.io/${PROJECT_ID}/${IMAGE_NAME}:latest"
+        GCR_URL = "gcr.io/${PROJECT_ID}/${IMAGE_NAME}"
         KUBE_CONFIG_PATH = '/home/jenkins/.kube/config'
     }
 
