@@ -5,6 +5,7 @@ pipeline {
         PROJECT_ID = 'crack-atlas-430705-a1'
         IMAGE_NAME = 'mobilefirstnew'
         GCR_URL = "gcr.io/${PROJECT_ID}/${IMAGE_NAME}"
+        KUBE_CONFIG_PATH = '/home/jenkins/.kube/config'
     }
 
     stages {
@@ -46,20 +47,19 @@ pipeline {
                 }
             }
         }
-
         stage('Deploying on Kubernetes') {
-            steps {
-                script {
-                    withEnv(["KUBECONFIG=/root/.kube/config"]) {
-                        sh """
-                        kubectl apply -f k8s/deployment.yaml
-                        kubectl rollout status deployment/mobilefirst-deployment
-                        """
-                    }
-                }
-            }
+          steps {
+             script {
+               sh """
+               kubectl --kubeconfig=${KUBE_CONFIG_PATH} apply -f k8s/deployment.yaml
+               kubectl --kubeconfig=${KUBE_CONFIG_PATH} rollout status deployment/mobilefirst-deployment
+               """
         }
     }
+}
+
+        
+}
 
     post {
         always {
