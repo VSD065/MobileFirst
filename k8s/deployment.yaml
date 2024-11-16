@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mobilefirst
-          image: gcr.io/your-gcp-project-id/your-docker-image-name:latest  # Replace with your Docker image
+          image: gcr.io/crack-atlas-430705-a1/mobilefirstnew:latest  # Replace with your Docker image
           ports:
             - containerPort: 80
           env:
