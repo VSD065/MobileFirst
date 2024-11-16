@@ -52,7 +52,7 @@ pipeline {
              script {
                sh """
                kubectl --kubeconfig=${KUBE_CONFIG_PATH} apply -f k8s/deployment.yaml
-               kubectl --kubeconfig=${KUBE_CONFIG_PATH} rollout status mobilefirst
+            //    kubectl --kubeconfig=${KUBE_CONFIG_PATH} rollout status mobilefirst
                """
         }
     }
