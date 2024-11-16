@@ -95,47 +95,10 @@ resource "google_compute_firewall" "allow_ssh" {
     ignore_changes = [name]  # Ignore changes to the 'name' attribute
   }
 }
-
-# Create Google Cloud Armor policy to allow only traffic from India
-# resource "google_compute_security_policy" "india_policy" {
-#   name = "india-traffic-policy"
-
-#   # Allow rule for India
-#   rule {
-#     action   = "allow"
-#     priority = 1000
-#     match {
-#       versioned_expr = "SRC_IPS_V1"
-#       config {
-#         src_ip_ranges = ["103.0.0.0/8"]  # Valid CIDR for India
-#       }
-#     }
-#   }
-
-#   # Deny all rule (default rule)
-#   rule {
-#     action   = "deny"
-#     priority = 2147483647  # Highest priority
-#     match {
-#       versioned_expr = "SRC_IPS_V1"
-#       config {
-#         src_ip_ranges = ["*"]  # Match all IPs (default deny)
-#       }
-#     }
-#   }
-# }
-
-
 # Define health check for the backend service
 resource "google_compute_http_health_check" "nginx_health_check" {
   name = "nginx-health-check"
   port = 80
 }
 
-# # Attach Cloud Armor policy to HTTP load balancer (K8s service)
-# resource "google_compute_backend_service" "nginx_backend" {
-#   name            = "nginx-backend"
-#   security_policy = google_compute_security_policy.india_policy.id
-#   health_checks   = [google_compute_http_health_check.nginx_health_check.id]
-# }
 
