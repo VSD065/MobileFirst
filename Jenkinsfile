@@ -11,8 +11,14 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                // Clone the repository where your Dockerfile is
-                git 'https://github.com/VSD065/MobileFirst.git'
+                script {
+                    // Explicitly define the branch to avoid conflicts
+                    git(
+                        credentialsId: 'cred4mobilefirst',
+                        url: 'https://github.com/VSD065/MobileFirst.git',
+                        branch: 'main' // Replace 'main' with 'master' if the default branch is master
+                    )
+                }
             }
         }
 
