@@ -47,6 +47,7 @@ pipeline {
             //     sh 'kubectl rollout restart deploy mobilefirst'
             // }
         }
+        }
 
         // stage('Authenticate with GCR') {
         //     steps {
