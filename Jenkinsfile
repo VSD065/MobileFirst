@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set your project ID and GCR repository
         PROJECT_ID = 'crack-atlas-430705-a1'
-        IMAGE_NAME = 'mobilefirstnew'
+        IMAGE_NAME = 'gcr.io/crack-atlas-430705-a1/mobilefirstnew'
         GCR_URL = "gcr.io/${PROJECT_ID}/${IMAGE_NAME}"
     }
 
@@ -28,7 +28,7 @@ pipeline {
                     // Build the Docker image
                     // docker.build("${IMAGE_NAME}")
                     // sh "docker image build -t ${IMAGE_NAME}:latest ."
-                    sh 'docker build -t gcr.io/crack-atlas-430705-a1/mobilefirstnew .'
+                    sh 'docker build -t  ${IMAGE_NAME} .'
                 }
             }
         }
@@ -63,7 +63,7 @@ pipeline {
                     // sh "docker push ${GCR_URL}"
                     // sh "docker image push ${IMAGE_NAME}:latest"
                     // sh "docker image rm ${IMAGE_NAME}:latest"
-                     sh 'docker push gcr.io/crack-atlas-430705-a1/mobilefirstnew'
+                     sh 'docker push ${IMAGE_NAME}'
                     
                 }
             }
