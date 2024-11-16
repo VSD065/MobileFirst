@@ -6,6 +6,7 @@ pipeline {
         PROJECT_ID = 'crack-atlas-430705-a1'
         IMAGE_NAME = 'gcr.io/crack-atlas-430705-a1/mobilefirstnew'
         GCR_URL = "gcr.io/${PROJECT_ID}/${IMAGE_NAME}"
+        KUBE_CONFIG_PATH = '/root/.kube/config'
     }
 
     stages {
@@ -33,10 +34,18 @@ pipeline {
             }
         }
         stage ('Deploying on kubernetes') {
-            steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
-                sh 'kubectl rollout restart deploy mobilefirst'
-            }
+            script {
+                    withEnv(["KUBECONFIG=${KUBE_CONFIG_PATH}"]) {
+                        // Apply the Kubernetes deployment configuration
+                        sh """
+                        kubectl set image deployment/mobilefirst-deployment mobilefirst-container=${GCR_URL} --record
+                        kubectl rollout status deployment/mobilefirst-deployment
+                        """
+                    }
+            // steps {
+            //     sh 'kubectl apply -f k8s/deployment.yaml'
+            //     sh 'kubectl rollout restart deploy mobilefirst'
+            // }
         }
 
         // stage('Authenticate with GCR') {
