@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mobilefirst
+  labels:
+    app: mobilefirst
+spec:
+  replicas: 1  # Number of replicas to run
+  selector:
+    matchLabels:
+      app: mobilefirst
+  template:
+    metadata:
+      labels:
+        app: mobilefirst
+    spec:
+      containers:
+        - name: mobilefirst
+          image: gcr.io/your-gcp-project-id/your-docker-image-name:latest  # Replace with your Docker image
+          ports:
+            - containerPort: 80
+          env:
+            - name: ENV_VAR_NAME
+              value: "value"  # Add environment variables if needed
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mobilefirst-service
+spec:
+  selector:
+    app: mobilefirst
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer  # Creates a LoadBalancer to expose the app externally
+
