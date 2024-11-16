@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set your project ID and GCR repository
         PROJECT_ID = 'crack-atlas-430705-a1'
-        IMAGE_NAME = 'mobilefirst'
+        IMAGE_NAME = 'mobilefirstnew'
         GCR_URL = "gcr.io/${PROJECT_ID}/${IMAGE_NAME}"
     }
 
