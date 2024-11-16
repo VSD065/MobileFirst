@@ -32,6 +32,12 @@ pipeline {
                 }
             }
         }
+        stage ('Deploying on kubernetes') {
+            steps {
+                sh 'kubectl apply -f k8s/deployment.yaml'
+                sh 'kubectl rollout restart deploy mobilefirst'
+            }
+        }
 
         // stage('Authenticate with GCR') {
         //     steps {
