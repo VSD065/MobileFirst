@@ -31,17 +31,28 @@ pipeline {
             }
         }
 
+        // stage('Authenticate with GCR') {
+        //     steps {
+        //         script {
+        //             // Authenticate with Google Cloud using Service Account credentials
+        //             withCredentials([file(credentialsId: 'gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+        //                 sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
+        //                 sh 'gcloud auth configure-docker'
+        //             }
+        //         }
+        //     }
+        // }
         stage('Authenticate with GCR') {
-            steps {
-                script {
-                    // Authenticate with Google Cloud using Service Account credentials
-                    withCredentials([file(credentialsId: 'gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                        sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
-                        sh 'gcloud auth configure-docker'
-                    }
-                }
+          steps {
+            script {
+             withCredentials([file(credentialsId: 'gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                echo "Service account key is at ${GOOGLE_APPLICATION_CREDENTIALS}"  // Debugging line
+                sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
+                sh 'gcloud auth configure-docker'
             }
         }
+    }
+}
 
         stage('Push Docker Image to GCR') {
             steps {
