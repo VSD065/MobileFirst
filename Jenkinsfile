@@ -59,7 +59,9 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Google Container Registry (GCR)
-                    sh "docker push ${GCR_URL}"
+                    // sh "docker push ${GCR_URL}"
+                    sh "docker image push ${IMAGE_NAME}:latest"
+                    sh "docker image rm ${IMAGE_NAME}:latest"
                 }
             }
         }
